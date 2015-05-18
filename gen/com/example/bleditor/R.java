@@ -1914,9 +1914,10 @@ containing a value of this type.
         public static final int areaButtons=0x7f09004f;
         public static final int beginning=0x7f090020;
         public static final int buttonPanel=0x7f090036;
-        public static final int buttonRead=0x7f090058;
+        public static final int buttonRead=0x7f09005c;
         public static final int buttonScan=0x7f090050;
         public static final int buttonStop=0x7f090051;
+        public static final int buttonWrite=0x7f09005d;
         public static final int checkbox=0x7f090038;
         public static final int collapseActionView=0x7f09001a;
         public static final int contentPanel=0x7f090031;
@@ -1931,7 +1932,9 @@ containing a value of this type.
         public static final int end=0x7f090021;
         public static final int expand_activities_button=0x7f090027;
         public static final int expanded_menu=0x7f090037;
+        public static final int fieldByteVal=0x7f09005a;
         public static final int fieldName=0x7f090053;
+        public static final int fieldStrVal=0x7f090058;
         public static final int home=0x7f090000;
         public static final int homeAsUp=0x7f09000e;
         public static final int icon=0x7f09002b;
@@ -1975,7 +1978,9 @@ containing a value of this type.
         public static final int src_over=0x7f090018;
         public static final int submit_area=0x7f09004b;
         public static final int tabMode=0x7f09000c;
+        public static final int textByteValue=0x7f09005b;
         public static final int textSpacerNoButtons=0x7f090033;
+        public static final int textStrValue=0x7f090059;
         public static final int textTagName=0x7f090054;
         public static final int title=0x7f09002c;
         public static final int title_template=0x7f09002f;

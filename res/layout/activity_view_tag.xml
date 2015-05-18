@@ -49,14 +49,63 @@
         android:layout_below="@+id/spinnerCharacteristics"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp" />
+    
+    <TextView
+        android:id="@+id/fieldStrVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/spinnerDescriptors"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="String: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/textStrValue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fieldStrVal"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/fieldStrVal"
+        android:ems="10" />
+    
+    <TextView
+        android:id="@+id/fieldByteVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/fieldStrVal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Hex: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <EditText
+        android:id="@+id/textByteValue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fieldByteVal"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/fieldByteVal"
+        android:ems="10" />
+    
+     <Button
+         android:id="@+id/buttonRead"
+         android:layout_width="180dp"
+         android:layout_height="50dp"
+         android:layout_below="@id/fieldByteVal"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="10dp"
+         android:text="Read" />
 
     <Button
-        android:id="@+id/buttonRead"
+        android:id="@+id/buttonWrite"
         android:layout_width="180dp"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp"
-        android:text="Read" />
+        android:layout_alignLeft="@+id/buttonRead"
+        android:layout_below="@id/buttonRead"
+        android:layout_marginTop="10dp"
+        android:text="Write" />
 
 </RelativeLayout>

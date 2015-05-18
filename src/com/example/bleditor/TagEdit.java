@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -45,7 +46,10 @@ public class TagEdit extends Activity {
 	private Spinner spinnerService;
 	private Spinner spinnerCharacteristic;
 	private Spinner spinnerDescriptor;
+	private EditText valueStr;
+	private EditText valueHex;
 	private Button btnRead;
+	private Button btnWrite;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,18 +72,53 @@ public class TagEdit extends Activity {
 			
 			if (action == mBLEService.SERVICES_AVAILABLE){UpdateServiceSpinner(mBLEService.mServices);}
 			else if(action == mBLEService.CHARACTERISTIC_DATA){ReadCharacteristic();}
+			else if(action == mBLEService.DESCRIPTOR_DATA){ReadDescriptor();}
+			else if(action == mBLEService.CHARACTERISTIC_WRITE){Toast toast = Toast.makeText(getApplicationContext(), "Write Success!", Toast.LENGTH_SHORT); toast.show();};
 		} 
 		
 	};
 	
-	private void ReadCharacteristic(){
-		String temp = selectedCharacteristic.getValue().toString();
+	final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
+	public static String bytesToHex(byte[] bytes) {
+	    char[] hexChars = new char[bytes.length * 2];
+	    for ( int j = 0; j < bytes.length; j++ ) {
+	        int v = bytes[j] & 0xFF;
+	        hexChars[j * 2] = hexArray[v >>> 4];
+	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+	    }
+	    return new String(hexChars);
+	}
+	
+	public static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len/2];
+
+        for(int i = 0; i < len; i+=2){
+            data[i/2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i+1), 16));
+        }
+
+        return data;
+    }
+	
+	private void ReadDescriptor(){
+		String temp = bytesToHex(selectedDescriptor.getValue());
 		if(temp == null)
 			Log.i("Tag Activity", "Data Retrival Failed");
 		else{
 			Toast toast = Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_SHORT);
 			toast.show();
 			Log.i("Tag Activity", temp);
+		}
+	}
+	
+	private void ReadCharacteristic(){
+		String bytetemp = bytesToHex(selectedCharacteristic.getValue());
+		String strtemp = new String(selectedCharacteristic.getValue());
+		if(bytetemp == null)
+			Log.i("Tag Activity", "Data Retrival Failed");
+		else{
+			valueHex.setText(bytetemp);
+			valueStr.setText(strtemp);
 		}
 	}
 	
@@ -154,6 +193,8 @@ public class TagEdit extends Activity {
 	private void SetUpReciever(){
 		mFilter.addAction(mBLEService.SERVICES_AVAILABLE);
 		mFilter.addAction(mBLEService.CHARACTERISTIC_DATA);
+		mFilter.addAction(mBLEService.DESCRIPTOR_DATA);
+		mFilter.addAction(mBLEService.CHARACTERISTIC_WRITE);
 	}
 	
 	private void SetUpUI(){
@@ -213,7 +254,8 @@ public class TagEdit extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
+				if(position != 0)
+					selectedDescriptor = selectedCharacteristic.getDescriptors().get(position - 1);
 				
 			}
 
@@ -224,12 +266,26 @@ public class TagEdit extends Activity {
 			}
 		});
 		
+		valueStr = (EditText)(findViewById(R.id.textStrValue));
+		valueHex = (EditText)(findViewById(R.id.textByteValue));
+		
 		btnRead = (Button)(findViewById(R.id.buttonRead));
 		btnRead.setOnClickListener(new android.view.View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				mBLEService.mGatt.readCharacteristic(selectedCharacteristic);
+				
+			}
+		});
+		
+		btnWrite = (Button)(findViewById(R.id.buttonWrite));
+		btnWrite.setOnClickListener(new android.view.View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				selectedCharacteristic.setValue(hexStringToByteArray(valueHex.getText().toString()));
+				mBLEService.mGatt.writeCharacteristic(selectedCharacteristic);
 				
 			}
 		});

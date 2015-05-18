@@ -36,6 +36,8 @@ public class BluetoothService extends Service {
 	public final String DISCONNECTED = "DISCONNECTED_FROM_DEVICE";
 	public final String SERVICES_AVAILABLE = "SERVICES";
 	public final String CHARACTERISTIC_DATA = "CHARACTERISTICS";
+	public final String DESCRIPTOR_DATA = "DESCRIPTORS";
+	public final String CHARACTERISTIC_WRITE = "CHAR_WRITE";
 	
 	private BluetoothAdapter mAdapter;
 	public BluetoothLeScanner mScanner;
@@ -82,7 +84,14 @@ public class BluetoothService extends Service {
 		 @Override
 		 public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status){
 			 if(status == BluetoothGatt.GATT_SUCCESS){
-				 
+				 UpdateBroadcast(DESCRIPTOR_DATA);
+			 }
+		 }
+		 
+		 @Override
+		 public void onCharacteristicWrite (BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status){
+			 if(status == BluetoothGatt.GATT_SUCCESS){
+				 UpdateBroadcast(CHARACTERISTIC_WRITE);
 			 }
 		 }
 		 

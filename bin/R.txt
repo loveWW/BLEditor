@@ -421,9 +421,10 @@ int id always 0x7f090019
 int id areaButtons 0x7f09004f
 int id beginning 0x7f090020
 int id buttonPanel 0x7f090036
-int id buttonRead 0x7f090058
+int id buttonRead 0x7f09005c
 int id buttonScan 0x7f090050
 int id buttonStop 0x7f090051
+int id buttonWrite 0x7f09005d
 int id checkbox 0x7f090038
 int id collapseActionView 0x7f09001a
 int id contentPanel 0x7f090031
@@ -438,7 +439,9 @@ int id edit_query 0x7f090042
 int id end 0x7f090021
 int id expand_activities_button 0x7f090027
 int id expanded_menu 0x7f090037
+int id fieldByteVal 0x7f09005a
 int id fieldName 0x7f090053
+int id fieldStrVal 0x7f090058
 int id home 0x7f090000
 int id homeAsUp 0x7f09000e
 int id icon 0x7f09002b
@@ -482,7 +485,9 @@ int id src_in 0x7f090017
 int id src_over 0x7f090018
 int id submit_area 0x7f09004b
 int id tabMode 0x7f09000c
+int id textByteValue 0x7f09005b
 int id textSpacerNoButtons 0x7f090033
+int id textStrValue 0x7f090059
 int id textTagName 0x7f090054
 int id title 0x7f09002c
 int id title_template 0x7f09002f
